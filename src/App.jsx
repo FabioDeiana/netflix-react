@@ -6,6 +6,7 @@ import Footer from "./components/Footer"
 import MovieRow from "./components/MovieRow"
 import { MOVIE_COLLECTIONS } from "./constants/movieCollections"
 import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap-icons/font/bootstrap-icons.css"
 import "./App.css"
 
 export default function App() {
@@ -58,7 +59,7 @@ export default function App() {
       <Container
         fluid
         className="px-4 px-md-5 pt-4 pt-md-5 position-relative"
-        style={{ zIndex: 10, marginTop: "-50px" }}
+        style={{ zIndex: 10, marginTop: "-200px" }}
       >
         {MOVIE_COLLECTIONS.map((collection, index) => (
           <MovieRow

@@ -17,6 +17,13 @@ const Footer = () => {
     "Contact Us",
   ]
 
+  const socialIcons = [
+    { name: "Facebook", icon: "bi-facebook" },
+    { name: "Instagram", icon: "bi-instagram" },
+    { name: "Twitter", icon: "bi-twitter-x" },
+    { name: "Youtube", icon: "bi-youtube" },
+  ]
+
   return (
     <footer className="py-5 mt-5 border-top border-secondary">
       <Container>
@@ -24,12 +31,15 @@ const Footer = () => {
           <Col xs={12} md={10} lg={8}>
             {/* Social Icons */}
             <div className="d-flex gap-3 mb-4">
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className="bg-secondary rounded"
-                  style={{ width: "24px", height: "24px" }}
-                ></div>
+              {socialIcons.map((social, index) => (
+                <a
+                  key={index}
+                  href="#"
+                  className="text-secondary fs-5"
+                  title={social.name}
+                >
+                  <i className={`bi ${social.icon}`}></i>
+                </a>
               ))}
             </div>
 

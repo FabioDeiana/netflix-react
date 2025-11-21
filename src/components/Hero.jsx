@@ -42,9 +42,13 @@ const Hero = ({ movie, loading, error, onRetry }) => {
   return (
     <div
       className="hero"
-      style={{ backgroundImage: `url(${movie.Poster})`, marginTop: "56px" }}
+      style={{
+        backgroundImage: `linear-gradient(to right, #141414 0%, rgba(20,20,20,0.9) 30%, rgba(20,20,20,0.5) 60%, transparent 100%),
+                          linear-gradient(to top, #141414 0%, #141414 20%, transparent 80%),
+                          url(${movie.Poster})`,
+        marginTop: "56px",
+      }}
     >
-      <div className="hero-overlay"></div>
       <Container
         fluid
         className="position-relative h-100 px-4 px-md-5"
@@ -68,10 +72,10 @@ const Hero = ({ movie, loading, error, onRetry }) => {
             </div>
             <div className="d-flex gap-2 gap-md-3">
               <Button variant="light" className="fw-semibold px-3 px-md-4">
-                ▶ Play
+                <i className="bi bi-play-fill me-1"></i> Play
               </Button>
               <Button variant="secondary" className="fw-semibold px-3 px-md-4">
-                ℹ More Info
+                <i className="bi bi-info-circle me-1"></i> More Info
               </Button>
             </div>
           </Col>
