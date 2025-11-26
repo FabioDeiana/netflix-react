@@ -1,14 +1,25 @@
 import React from "react"
 import { Card } from "react-bootstrap"
+import { useNavigate } from "react-router-dom"
 
 const MovieCard = ({ movie }) => {
+  const navigate = useNavigate()
+
   const posterUrl =
     movie.Poster !== "N/A"
       ? movie.Poster
       : "https://via.placeholder.com/300x450/333/fff?text=No+Image"
 
+  const handleCardClick = () => {
+    navigate(`/movie-details/${movie.imdbID}`)
+  }
+
   return (
-    <Card className="movie-card bg-transparent border-0 overflow-hidden rounded position-relative">
+    <Card
+      className="movie-card bg-transparent border-0 overflow-hidden rounded position-relative"
+      onClick={handleCardClick}
+      style={{ cursor: "pointer" }}
+    >
       <Card.Img
         src={posterUrl}
         alt={movie.Title}
@@ -17,10 +28,38 @@ const MovieCard = ({ movie }) => {
       />
       <div className="movie-card-overlay position-absolute bottom-0 start-0 end-0 p-2 pt-5">
         <div className="d-flex gap-1 mb-2">
-          <button className="card-btn play">▶</button>
-          <button className="card-btn">+</button>
-          <button className="card-btn">👍</button>
-          <button className="card-btn ms-auto">▼</button>
+          <button
+            className="card-btn play"
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+          >
+            ▶
+          </button>
+          <button
+            className="card-btn"
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+          >
+            +
+          </button>
+          <button
+            className="card-btn"
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+          >
+            👍
+          </button>
+          <button
+            className="card-btn ms-auto"
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+          >
+            ▼
+          </button>
         </div>
         <h6 className="text-white small fw-bold mb-1 text-truncate">
           {movie.Title}

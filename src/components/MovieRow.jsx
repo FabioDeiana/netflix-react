@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
-import { Row, Col, Alert, Button, Spinner } from "react-bootstrap"
+import { Row, Col } from "react-bootstrap"
 import MovieCard from "./MovieCard"
+import ErrorMessage from "./ErrorMessage"
 
 const MovieRow = ({ title, imdbIds }) => {
   const [movies, setMovies] = useState([])
@@ -16,17 +17,19 @@ const MovieRow = ({ title, imdbIds }) => {
         imdbIds.map((id) =>
           fetch(`https://www.omdbapi.com/?i=${id}&apikey=26d4dea4&plot=short`)
             .then((res) => {
-              if (!res.ok) throw new Error("Network error")
+              if (!res.ok) throw new Error(`Errore HTTP: ${res.status}`)
               return res.json()
             })
             .then((data) => {
               if (data.Error) throw new Error(data.Error)
+              if (data.Response === "False") throw new Error("Film non trovato")
               return data
             })
         )
       )
       setMovies(responses)
     } catch (err) {
+      console.error(`Errore caricamento ${title}:`, err)
       setError(err.message || "Errore nel caricamento dei film")
     } finally {
       setLoading(false)
@@ -42,15 +45,7 @@ const MovieRow = ({ title, imdbIds }) => {
     return (
       <div className="mb-4 mb-md-5">
         <h2 className="h4 text-light fw-bold mb-3">{title}</h2>
-        <Alert
-          variant="danger"
-          className="bg-transparent border-danger d-flex align-items-center justify-content-between"
-        >
-          <span>⚠️ {error}</span>
-          <Button variant="outline-danger" size="sm" onClick={fetchMovies}>
-            🔄 Riprova
-          </Button>
-        </Alert>
+        <ErrorMessage message={error} onRetry={fetchMovies} />
       </div>
     )
   }
